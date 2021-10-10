@@ -7,17 +7,22 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     private Button startButton;
+    private TextView progressTV;
     private volatile boolean stopThread = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        startButton = findViewById(R.id.startButton);
+        progressTV = findViewById(R.id.textView);
     }
 
     public void mockFileDownloader() {
@@ -30,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         for (int downloadProgress = 0; downloadProgress <= 100; downloadProgress = downloadProgress + 10) {
             if (stopThread) {
-                runOnUIThread(new Runnable() {
+                runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         startButton.setText("Start");
@@ -40,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             Log.d(TAG, "Download Progress: " + downloadProgress + "%");
+            progressTV.setText("Download Progress: " + downloadProgress + "%");
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -47,16 +53,13 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        runOnUIThread(new Runnable() {
+        runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 startButton.setText("Start");
             }
         });
 
-    }
-
-    private void runOnUIThread(Runnable start) {
     }
 
     public void startDownload(View view) {
@@ -76,5 +79,3 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
-
-// TODO how to display download progress

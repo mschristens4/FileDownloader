@@ -40,4 +40,13 @@
         app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints,UseSwitchCompatOrMaterialXml" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        tools:layout_editor_absoluteX="169dp"
+        tools:layout_editor_absoluteY="276dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
