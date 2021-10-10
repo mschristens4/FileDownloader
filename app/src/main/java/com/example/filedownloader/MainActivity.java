@@ -36,28 +36,40 @@ public class MainActivity extends AppCompatActivity {
 
         for (int downloadProgress = 0; downloadProgress <= 100; downloadProgress = downloadProgress + 10) {
             if (stopThread) {
-                runOnUiThread(new Runnable() {
+                break;
+            }
+                /**runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         startButton.setText("Start");
+                        progressTV.setText("");
                     }
                 });
                 return;
-            }
+            }**/
 
-            Log.d(TAG, "Download Progress: " + downloadProgress + "%");
-            progressTV.setText("Download Progress: " + downloadProgress + "%");
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    progressTV.setText("Download Progress: " + downloadProgress + "%");
+                }
+            });
+            /**Log.d(TAG, "Download Progress: " + downloadProgress + "%");
+            progressTV.setText("Download Progress: " + downloadProgress + "%");**/
+
         }
 
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 startButton.setText("Start");
+                progressTV.setText("");
             }
         });
 
